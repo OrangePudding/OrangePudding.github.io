@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IP Info</title>
+    <script>
+        // Function to get geo info based on IP
+        function getGeoInfo(ip) {
+            fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,regionName,city,isp`)
+                .then(response => response.json())
+                .then(data => {
+                    // Display the data on the web page
+                    document.getElementById("output").innerHTML = JSON.stringify(data, null, 2);
+
+                    // Send data back to the game
+                    if (window.ue) {
+                        window.ue.ipInfoCallback(JSON.stringify(data));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching IP info:', error);
+                });
+        }
+
+        // Call the function with a sample IP address when the page loads
+        window.onload = function() {
+            getGeoInfo("8.8.8.8");
+        };
+    </script>
+</head>
+<body>
+    <h1>IP Info</h1>
+    <pre id="output">Loading...</pre>
+</body>
+</html>
