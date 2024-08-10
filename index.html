@@ -12,7 +12,7 @@
                     document.getElementById("output").innerHTML = JSON.stringify(data, null, 2);
 
                     // Send data back to the game
-                    if (window.ue) {
+                    if (window.ue && window.ue.ipInfoCallback) {
                         window.ue.ipInfoCallback(JSON.stringify(data));
                     }
                 })
@@ -23,7 +23,7 @@
 
         // Call the function with a sample IP address when the page loads
         window.onload = function() {
-            getGeoInfo("114.114.114.114");
+            getGeoInfo("8.8.8.8");
         };
     </script>
 </head>
